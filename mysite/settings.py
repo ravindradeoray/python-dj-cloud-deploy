@@ -28,11 +28,8 @@ DEBUG = os.environ.get('DEBUG')=='1'
 DEV_SECRET_KEY = '2j$i#b@!t1m_yc_!2^$g4or&9(hqyc_!2^$g4or&9(hqq9+@e(_y#erq9+@e(_y#ereaoz5$q*yty'
 SECRET_KEY = os.getenv('SECRET_KEY', DEV_SECRET_KEY)
 
-ALLOWED_HOSTS = []
-if (not DEBUG):
-    ALLOWED_HOSTS.append('127.0.0.1')
-    ALLOWED_HOSTS.append('mysite.ezsitehoster.com')
-    ALLOWED_HOSTS.append('mysite-dev222.us-east-1.elasticbeanstalk.com')
+ALLOWED_HOSTS = ['127.0.0.1', 'mysite-dev222.us-east-1.elasticbeanstalk.com']
+
 
 
 # Application definition
