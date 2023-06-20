@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 if (not DEBUG):
     ALLOWED_HOSTS.append('127.0.0.1')
     ALLOWED_HOSTS.append('mysite.ezsitehoster.com')
+    ALLOWED_HOSTS.append('mysite-dev.ap-south-1.elasticbeanstalk.com')
 
 
 # Application definition
