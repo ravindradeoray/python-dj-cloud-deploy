@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import requests
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +30,12 @@ DEV_SECRET_KEY = '2j$i#b@!t1m_yc_!2^$g4or&9(hqyc_!2^$g4or&9(hqq9+@e(_y#erq9+@e(_
 SECRET_KEY = os.getenv('SECRET_KEY', DEV_SECRET_KEY)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'mysite-dev222.us-east-1.elasticbeanstalk.com']
-
+if not DEBUG:  ## when running in AWS
+    try:
+        EC2_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4').text
+        ALLOWED_HOSTS.append(EC2_IP)
+    except requests.exceptions.RequestException:
+        pass
 
 
 # Application definition
