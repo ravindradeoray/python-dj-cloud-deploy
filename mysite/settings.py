@@ -29,7 +29,13 @@ DEBUG = os.environ.get('DEBUG')=='1'
 DEV_SECRET_KEY = '2j$i#b@!t1m_yc_!2^$g4or&9(hqyc_!2^$g4or&9(hqq9+@e(_y#erq9+@e(_y#ereaoz5$q*yty'
 SECRET_KEY = os.getenv('SECRET_KEY', DEV_SECRET_KEY)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'mysite-dev222.us-east-1.elasticbeanstalk.com', 'mysite-dev.1800infotech.com']
+ALLOWED_HOSTS = []
+
+if (not DEBUG):
+    ALLOWED_HOSTS.append('127.0.0.1')
+    ALLOWED_HOSTS.append('mysite-dev222.us-east-1.elasticbeanstalk.com')
+    ALLOWED_HOSTS.append('mysite-dev.1800infotech.com')
+
 if not DEBUG:  ## when running in AWS
     try:
         EC2_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4').text
@@ -126,7 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-if (True):
+if (not DEBUG):
     STATIC_ROOT = os.path.join(BASE_DIR, "www", "static")
 
 STATIC_URL = 'static/'
@@ -138,7 +144,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 ## manage.py check --deploy fixes
-if (False):
+if (not DEBUG):
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
@@ -146,3 +152,4 @@ if (False):
 # Setup SSL 
 # add support for createsu command
 # enable check --deploy fixes
+# fix failing health check enable / path to return 200
