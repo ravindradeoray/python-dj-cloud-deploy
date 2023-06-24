@@ -148,10 +148,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 ## manage.py check --deploy fixes
+SECURE_REDIRECT_EXEMPT = [r'^health/$', '/health']
 if (not DEBUG):
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+
 
 # Setup SSL 
 # add support for createsu command
