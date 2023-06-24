@@ -48,6 +48,11 @@ if not DEBUG:  ## when running in AWS
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
+    'health_check',                             # required
+    'health_check.db',                          # stock Django health checkers
+    'health_check.cache',
+    'health_check.storage',
+    'health_check.contrib.migrations',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

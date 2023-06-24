@@ -1,6 +1,7 @@
 db.sqlite3
 scratch/*
 scratch
+health_check_storage_test
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
