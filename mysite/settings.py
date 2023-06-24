@@ -149,10 +149,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ## manage.py check --deploy fixes
 #SECURE_REDIRECT_EXEMPT = [r'^health/$', '/health', 'health/', 'health']
-if (not DEBUG):
-    SECURE_SSL_REDIRECT = False
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+# if (not DEBUG):
+#     SECURE_SSL_REDIRECT = False
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
 
 
 # Setup SSL 
