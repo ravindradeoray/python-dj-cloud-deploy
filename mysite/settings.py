@@ -31,12 +31,10 @@ SECRET_KEY = os.getenv('SECRET_KEY', DEV_SECRET_KEY)
 
 ALLOWED_HOSTS = []
 
-if (not DEBUG):
+if not DEBUG:  ## when running in AWS
     ALLOWED_HOSTS.append('127.0.0.1')
     ALLOWED_HOSTS.append('mysite-dev222.us-east-1.elasticbeanstalk.com')
     ALLOWED_HOSTS.append('mysite-dev.1800infotech.com')
-
-if not DEBUG:  ## when running in AWS
     try:
         EC2_IP = requests.get('http://169.254.169.254/latest/meta-data/local-ipv4').text
         ALLOWED_HOSTS.append(EC2_IP)
