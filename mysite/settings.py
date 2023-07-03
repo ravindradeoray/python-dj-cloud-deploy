@@ -17,6 +17,9 @@ import requests
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+FIXTURE_DIRS = (
+   os.path.join(BASE_DIR, 'fixtures'),
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -148,15 +151,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 ## manage.py check --deploy fixes
-#SECURE_REDIRECT_EXEMPT = ['/polls', 'polls/', '/polls/', 'polls']
 SECURE_REDIRECT_EXEMPT = ['health/']
 if (not DEBUG):
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
-
-# Setup SSL 
-# add support for createsu command
-# enable check --deploy fixes
-# fix failing health check enable / path to return 200

@@ -8,9 +8,12 @@
 - `cd python-dj-cloud-deploy`
 - activate python virtual env
 - `pip install -r  requirements.txt`
+- setup env variable `export DEBUG=1` to activate local mode
 - `python manage.py migrate` 
+- `python manage.py loaddata polls`
+- optonal `python manage.py createsuperuser`
 - `python manage.py runserver`
-
+- validate - http://127.0.0.1:8080/polls/
 
  ## Running app on AWS EB
 
