@@ -27,7 +27,14 @@
 - `DEBUG=0` to run applciation in secure mode with AWS and ALB support for static files.
 - update your own secret-key which is specific to aws env
 - my sample shows how to setup SSL port with ALB. you can skip this and not bother running secure. but then set all secure ssl related flags to False in settings.py
-- here is full optional_settings section
+- app has additional changes to make it deployment ready 
+    - app health check
+    - eb load balancer healthcheck 
+    - SSL settings
+    - `STATIC_ROOT` to serve static content via nginx
+    - `ALLOWED_HOST` required for hardened deployment with debug turned off and support for ALB traffic
+    - all these changes are available in `settings.py` file on github
+- here is full optional_settings section for eb config
 ```
 option_settings:
   aws:elasticbeanstalk:application:environment:
@@ -78,14 +85,11 @@ container_commands:
     - `/var/log` - for application logs, if any of the startup command fails then you eb logs will just tell you one liner but if you ssh into ec2 instance then you will be able to check eb-init-cmd.log for details of startup command logs.
 
 
-## Setup like a pro
+## Part 2 - Setup like a pro
 
-### VPC 
+### VPC - support for public/prive subnet
 
-### Logs
+### Logs - custom logs and integration with cloud trail
 
-### Database
-
-### Monitoring
-
+### Database - with Aurora SQL
 
