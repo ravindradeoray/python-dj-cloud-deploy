@@ -31,13 +31,15 @@ if debug is not set of is set to anything other than '1' will be considered as p
 
 
 ### steps/commands to launch aws envrionment
-- `eb init`
+- `eb init` - sets up eb application profile. answer questions related to setting up brand new eb application for first time. Follow aws tutotial if you need help
+- `eb create`  - sets up new deployment. with its own unique CNAME which we need to add to settings.py as django needs for secure connection. Again AWS document explains at details
+- if everything is fine till this point then you should have a working eb deployment 
 
-- eb create 
-
-### Validations
-- eb logs
-- eb ssh 
+### Validations 
+- `eb logs`
+- `eb ssh` - if you setup key propertly then you shoudl be able to ssh into ec2 instance running python/django here are important folders 
+    - `/var/app/current` - For application working directory
+    - `/var/log` - for application logs, if any of the startup command fails then you eb logs will just tell you one liner but if you ssh into ec2 instance then you will be able to check eb-init-cmd.log for details of startup command logs.
 
 
 ## Setup like a pro
