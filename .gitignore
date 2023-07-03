@@ -9,3 +9,5 @@ health_check_storage_test
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 CodeDeployEc2Instances.pem
+.ebextensions/01_vpc.config
+.ebextensions/02_python.config
