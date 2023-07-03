@@ -3,6 +3,8 @@ scratch/*
 scratch
 health_check_storage_test
 # Elastic Beanstalk Files
+.ebextensions
+.ebextensions/*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml

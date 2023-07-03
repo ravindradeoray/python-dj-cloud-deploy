@@ -19,16 +19,52 @@
 
 ### pre-requisites
 - have a working aw accont
-- for easy start, we will keep default vpc with all public subnets. In part 2 we will deal with network customization 
+- for easy start, we will keep default vpc with all public subnets covering 3 Az's. For default setup EB will use ALB which requires vpc with atleast 2 subnets covering different az's.
 - install aws cli, aws eb cli
-- setup account for cli, ensure you account has all necessary permissions. Start with non console admin role. 
+- setup aws account for cli access as I like to do things via commandline. It helps to then understand how to automate stuff and not do it manually. Ensure that account you are going to use has necessary permissions to run EB cli
 
-### Application changes to support AWS and local
--- drive configuration using environment variables
-Add env variable DEBUG=1 which will force application to run with Debug mode
-if debug is not set of is set to anything other than '1' will be considered as production mode
-
-
+### Application changes to support AWS deployment.
+- `DEBUG=0` to run applciation in secure mode with AWS and ALB support for static files.
+- update your own secret-key which is specific to aws env
+- my sample shows how to setup SSL port with ALB. you can skip this and not bother running secure. but then set all secure ssl related flags to False in settings.py
+- here is full optional_settings section
+```
+option_settings:
+  aws:elasticbeanstalk:application:environment:
+    DJANGO_SETTINGS_MODULE: "mysite.settings"
+    DEBUG: "0"
+    SECRET_KEY: "env-specitic-secret-key-goes-here"
+  aws:elasticbeanstalk:container:python:
+    WSGIPath: mysite.wsgi:application
+  aws:elasticbeanstalk:environment:proxy:staticfiles:
+    /static: "www/static"
+  aws:elbv2:listener:443:
+    ListenerEnabled: 'true'
+    Protocol: HTTPS
+    SSLCertificateArns: <arn-for-your-ssl-cert-goes-here>
+  AWSEBV2LoadBalancerTargetGroup.aws:elasticbeanstalk:environment:process:default:
+    HealthCheckPath: /health/
+    MatcherHTTPCode: '200'
+    HealthCheckInterval: '15'
+    HealthCheckTimeout: '5'
+    HealthyThresholdCount: '3'
+```
+- To run number of django-admin/manage.py commands during application setup here is section of config
+```
+container_commands:
+  01_migrations:
+    command: "source /var/app/venv/*/bin/activate && python manage.py migrate --noinput"
+    leader_only: true
+  02_collectstatic:
+    command: "source /var/app/venv/*/bin/activate && python manage.py collectstatic --noinput"
+  03_load_initial_data:
+    command: "source /var/app/venv/*/bin/activate && python manage.py load_initial_data"
+    leader_only: true
+  06_dbpermissions:
+    command: "chown webapp:webapp db.sqlite3"
+```
+- setup above `container_commands` and `option_settings` in `01_python.config` file under `.ebextentions` folder under `BASE_DIR`
+- time check-in your code fire `eb create` or `eb deploy`. I prefer to check-in stuff before deploying to any enviornment but if you want you want to skip check-in then add `--staged` flag with your eb commands.
 
 ### steps/commands to launch aws envrionment
 - `eb init` - sets up eb application profile. answer questions related to setting up brand new eb application for first time. Follow aws tutotial if you need help
