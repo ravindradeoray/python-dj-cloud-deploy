@@ -6,3 +6,4 @@ health_check_storage_test
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+CodeDeployEc2Instances.pem
