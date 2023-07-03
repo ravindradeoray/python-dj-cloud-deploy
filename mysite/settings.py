@@ -149,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ## manage.py check --deploy fixes
 #SECURE_REDIRECT_EXEMPT = ['/polls', 'polls/', '/polls/', 'polls']
-SECURE_REDIRECT_EXEMPT = ['polls/']
+SECURE_REDIRECT_EXEMPT = ['health/']
 if (not DEBUG):
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
