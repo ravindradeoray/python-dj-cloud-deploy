@@ -87,7 +87,7 @@ container_commands:
 
 ## Part 2 - Setup like a pro
 
-### VPC - support for public/prive subnet
+### VPN - support for public/prive subnet
 
 ### Logs - custom logs and integration with cloud trail
 
